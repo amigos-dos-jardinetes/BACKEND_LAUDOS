@@ -1,0 +1,13 @@
+services:
+  laudos-backend:
+    container_name: laudos-backend
+    image: comissao-laudos/app:backend
+    build: 
+      context: .
+      platforms:
+        - linux/arm64
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+      - aws/aws.env
