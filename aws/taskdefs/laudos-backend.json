@@ -1,0 +1,95 @@
+{
+    "family": "comissao-laudos-ct-backend",
+    "containerDefinitions": [
+        {
+            "name": "comissao-laudos-ct",
+            "image": "279634266618.dkr.ecr.sa-east-1.amazonaws.com/comissao-laudos/backend:latest",
+            "cpu": 512,
+            "memory": 512,
+            "memoryReservation": 256,
+            "portMappings": [
+                {
+                    "name": "comissao-laudos-8080-tcp",
+                    "containerPort": 8080,
+                    "hostPort": 0,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [
+                {
+                    "name": "SERVER_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:server_port::"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_URL",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_datasource_url::"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_datasource_driver_class_name::"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_datasource_username::"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_datasource_password::"
+                },
+                {
+                    "name": "SPRING_JPA_HIBERNATE_DDL_AUTO",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_jpa_hibernate_ddl_auto::"
+                },
+                {
+                    "name": "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_security_oauth2_resource_server_jwt_issuer_uri::"
+                },
+                {
+                    "name": "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_security_oauth2_resource_server_jwk_set_uri::"
+                },
+                {
+                    "name": "AWS_S3_BUCKET_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:aws_s3_bucket_name::"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/utfpr/ecs/comissao-laudos",
+                    "awslogs-region": "sa-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::279634266618:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::279634266618:role/ecsTaskExecutionRole",
+    "networkMode": "bridge",
+    "volumes": [],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "runtimePlatform": {
+        "cpuArchitecture": "ARM64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "tags": [
+        {
+            "key": "utfpr-depto",
+            "value": "DAELN-CT"
+        },
+        {
+            "key": "utfpr-usuario",
+            "value": "simonecrocetti"
+        }
+    ]
+}
