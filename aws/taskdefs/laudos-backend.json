@@ -62,7 +62,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/utfpr/ecs/comissao-laudos",
+                    "awslogs-group": "/utfpr/ecs/comissao-laudos-ct-backend",
                     "awslogs-region": "sa-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
