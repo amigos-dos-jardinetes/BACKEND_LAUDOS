@@ -19,4 +19,4 @@ COPY --from=build /app/target/tcc-0.0.1-SNAPSHOT.jar /app/app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "-XX:MaxRAMPercentage=80", "-XX:MinRAMPercentage=25", "-XX:InitialRAMPercentage=25" ]
