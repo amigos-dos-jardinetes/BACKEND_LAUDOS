@@ -1,15 +1,36 @@
-source aws/aws.env
+#!/bin/bash
+# Carrega a imagem no ECR
+# A imagem preferencial usada no ECS será aquela com tag latest
 
-# Cria a imagem localmente
-docker compose build
+PROJECT=$1
 
-# Autentica no ECR
-aws ecr get-login-password --region ${ECR_REGION} | docker login --username AWS --password-stdin ${ECR_URI}
+if [ -z ${PROJECT} ]; then
+    echo "Uso: deploy.sh <nome_do_projeto>"
+    echo "Erro: Nome do projeto não informado"
+    exit 1
+fi
 
-# Aplca tags à imagem
-for t in ${TAGS}; do
-    docker tag ${ECR_REPO}:backend ${ECR_REPO_URI}:${t}
+PROJECT_ENV=env/${PROJECT}.env
+
+if [ ! -r ${PROJECT_ENV} ]; then
+    echo "Erro: Arquivo ${PROJECT_ENV} não existe ou não é legível"
+    exit 2
+fi
+
+source .env
+source ${PROJECT_ENV}
+
+export ECR_REPO=${ECR_REPO_BASE}/${PROJECT}
+ECR_REPO_URI=${ECR_URI}/${ECR_REPO}
+
+# algumas variáveis de ambiente precisam ser passadas ao compose
+export JAVA_VERSION
+docker compose -p ${PROJECT} build
+
+# aplica os tags à imagem
+for t in $TAGS; do
+    docker tag ${ECR_REPO}:java-${JAVA_VERSION} ${ECR_REPO_URI}:${t}
 done
 
-# Envia imagem para o ECR
+# upload da imagem no ECR
 docker push --all-tags ${ECR_REPO_URI}
