@@ -42,10 +42,6 @@
                     "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_datasource_password::"
                 },
                 {
-                    "name": "SPRING_JPA_HIBERNATE_DDL_AUTO",
-                    "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_jpa_hibernate_ddl_auto::"
-                },
-                {
                     "name": "SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI",
                     "valueFrom": "arn:aws:secretsmanager:sa-east-1:279634266618:secret:laudos/dirge-yUNHue:spring_security_oauth2_resource_server_jwt_issuer_uri::"
                 },
